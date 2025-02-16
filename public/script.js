@@ -1,3 +1,27 @@
+// Check user's preference on page load
+if (
+    localStorage.getItem('theme') === 'dark' ||
+    (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  ) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+  
+  // Toggle Dark Mode
+  const toggleButton = document.getElementById('dark-mode-toggle');
+  toggleButton.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+  
+    // Save user's preference
+    if (document.documentElement.classList.contains('dark')) {
+      localStorage.setItem('theme', 'dark');
+    } else {
+      localStorage.setItem('theme', 'light');
+    }
+  });
+  
+
 const voiceSelect = document.querySelector('#voiceSelect');
 const playButton = document.querySelector('#playButton');
 const textInput = document.querySelector('textarea');
