@@ -1,26 +1,30 @@
-// Check user's preference on page load
+// Dark Mode Setup
+const toggleButton = document.getElementById('dark-mode-toggle');
 if (
     localStorage.getItem('theme') === 'dark' ||
     (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
-  ) {
+) {
     document.documentElement.classList.add('dark');
-  } else {
+    toggleButton.textContent = 'Light';
+} else {
     document.documentElement.classList.remove('dark');
-  }
-  
-  // Toggle Dark Mode
-  const toggleButton = document.getElementById('dark-mode-toggle');
-  toggleButton.addEventListener('click', () => {
+    toggleButton.textContent = 'Dark';
+}
+
+// Toggle Dark Mode
+toggleButton.addEventListener('click', () => {
     document.documentElement.classList.toggle('dark');
-  
+
     // Save user's preference
     if (document.documentElement.classList.contains('dark')) {
-      localStorage.setItem('theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        toggleButton.textContent = 'Light';
     } else {
-      localStorage.setItem('theme', 'light');
+        localStorage.setItem('theme', 'light');
+        toggleButton.textContent = 'Dark';
     }
-  });
-  
+});
+
 
 const voiceSelect = document.querySelector('#voiceSelect');
 const playButton = document.querySelector('#playButton');
@@ -57,8 +61,6 @@ function loadVoices(){
 speechSynthesis.onvoiceschanged=loadVoices;
 loadVoices();
 
-
-//translate text with serverless function
 
 // Translate text with serverless function
 async function translateText(text, targetLang) {
